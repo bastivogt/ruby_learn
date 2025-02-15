@@ -21,7 +21,4 @@ class Counter
     @event_dispatcher.dispatch_event(CounterEvent.new(CounterEvent::COUNTER_FINISHED, self, @count))
   end
 
-  def this
-    return self
-  end
 end

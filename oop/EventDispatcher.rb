@@ -32,7 +32,7 @@ class EventDispatcher
   end
 
   def dispatch_event(event)
-    @listeners.each do | key, value |
+    @listeners.each do |key, value|
       if key == event.type
         value.call(event)
       end
