@@ -15,14 +15,23 @@ def counter_finish_handler(event)
   puts event.sender.count
 end
 
-c.event_dispatcher.add_listener CounterEvent::COUNTER_STARTED, method(:counter_start_handler)
-# c.event_dispatcher.add_listener CounterEvent::COUNTER_STARTED, lambda {|event| puts "#{event.type}, count: #{event.count}"}
 
-#c.event_dispatcher.add_listener(CounterEvent::COUNTER_STARTED, method(:counter_start_handler))
-c.event_dispatcher.add_listener(CounterEvent::COUNTER_UPDATED, method(:counter_update_handler))
-c.event_dispatcher.add_listener(CounterEvent::COUNTER_FINISHED, method(:counter_finish_handler))
 
-# c.event_dispatcher.remove_listener CounterEvent::COUNTER_UPDATED
+c.event_dispatcher.add_listener(CounterEvent::COUNTER_STARTED) do |event|
+  puts "#{event.type}, count: #{event.count}"
+end
+
+#c.event_dispatcher.add_listener(CounterEvent::COUNTER_UPDATED) {|event| puts "#{event.type}, count: #{event.count}"}
+
+c.event_dispatcher.add_listener(CounterEvent::COUNTER_UPDATED) {|event| 
+  puts "#{event.type}, count: #{event.count}"
+}
+
+c.event_dispatcher.add_listener(CounterEvent::COUNTER_FINISHED) do |event|
+  counter_finish_handler event
+end
+
+#c.event_dispatcher.remove_listener CounterEvent::COUNTER_UPDATED
 
 c.run
 

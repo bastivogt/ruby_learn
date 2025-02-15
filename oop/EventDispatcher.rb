@@ -15,7 +15,7 @@ class EventDispatcher
     return @listeners.has_key? type
   end
 
-  def add_listener(type, listener)
+  def add_listener(type, &listener)
     unless has_listener type
       @listeners[type] = listener
       return true
